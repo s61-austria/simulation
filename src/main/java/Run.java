@@ -10,7 +10,7 @@ import java.util.Collection;
 
 public class Run {
 
-    static String sumo_bin = "C:\\Program Files (x86)\\DLR\\Sumo\\bin\\sumo-gui.exe";
+    static String sumo_bin = "C:\\Program Files (x86)\\DLR\\Sumo\\bin\\sumo.exe";
     static final String config_file = "C:\\Users\\Jandie\\Desktop\\simulation\\maps\\test\\osm.sumocfg";
 
     public static void main(String[] args) {
