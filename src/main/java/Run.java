@@ -7,6 +7,7 @@ import logic.VehicleLogic;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Run {
 
@@ -27,9 +28,12 @@ public class Run {
             conn.do_timestep();
 
             for(int i=0; i<3600; i++){
-                Thread.sleep(100);
+                Thread.sleep(1000);
                 //add new vehicle
                 Collection<String> vehiclesIds = (Collection<String>) conn.do_job_get(Vehicle.getIDList());
+
+                System.out.println(vehiclesIds.stream().collect(Collectors.joining()));
+
                 if (vehiclesIds.size() > 0) {
                     List<domain.Vehicle> vehicles = new ArrayList<>();
 

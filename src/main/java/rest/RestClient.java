@@ -100,7 +100,7 @@ public class RestClient {
         Response response = client.target(REST_URI)
                 .path("locations")
                 .request(MediaType.APPLICATION_JSON)
-                .header("Authorization", token)
+                .header("Authorization", "Bearer " + token)
                 .post(Entity.entity(
                         new JsonUtil().encode(locationUpdateSerializer),
                         MediaType.APPLICATION_JSON));

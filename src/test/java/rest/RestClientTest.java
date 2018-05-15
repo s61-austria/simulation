@@ -84,6 +84,8 @@ public class RestClientTest {
         vehicle.setCurrentLat(45.66);
         vehicle.setCurrentLon(7.59);
 
+        System.out.println(token);
+
         response = restClient.pingVehicleLocation(vehicle, token);
 
         Assert.assertEquals(200, response.getStatus());
