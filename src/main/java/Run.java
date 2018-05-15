@@ -27,8 +27,7 @@ public class Run {
 
             conn.do_timestep();
 
-            for(int i=0; i<3600; i++){
-                Thread.sleep(1000);
+            for(int i=0; i<36000; i++){
                 //add new vehicle
                 Collection<String> vehiclesIds = (Collection<String>) conn.do_job_get(Vehicle.getIDList());
 
@@ -52,7 +51,9 @@ public class Run {
                     }
                 }
 
-                conn.do_timestep();
+                for (int x=0; x<100; x++) {
+                    conn.do_timestep();
+                }
             }
 
             //stop TraCI

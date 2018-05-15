@@ -1,10 +1,8 @@
 package rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kontofahren.datenvertrag.LocationUpdateSerializer;
 import domain.Vehicle;
 import domain.enums.VehicleType;
-import serializers.KontoUserSerializer;
 import serializers.LoginSerializer;
 import serializers.ProfileSerializer;
 import serializers.VehicleSerializer;
@@ -16,13 +14,11 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.lang.reflect.Array;
 import java.security.SecureRandom;
-import java.util.List;
 
 public class RestClient {
     private static final String REST_URI =
-            "http://localhost:8080/government/api";
+            "http://192.168.24.42:8080/government/api";
     private Client client = ClientBuilder.newClient();
 
     public String login(String username, String password) {
