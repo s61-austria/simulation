@@ -2,6 +2,7 @@ package logic;
 
 import domain.Vehicle;
 import rest.RestClient;
+import serializers.ProfileSerializer;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 public class VehicleLogic {
     private HashMap<String, Vehicle> vehicles = new HashMap<>();
     private RestClient restClient = new RestClient();
+    private ProfileSerializer user = restClient.getAllUsers()[0];
 
     public void update(List<Vehicle> vehicles) {
         checkForNewVehciles(vehicles);
