@@ -1,12 +1,12 @@
-import de.tudresden.sumo.cmd.Edge;
 import de.tudresden.sumo.cmd.Simulation;
 import de.tudresden.sumo.cmd.Vehicle;
 import de.tudresden.ws.container.SumoPosition2D;
 import it.polito.appeal.traci.*;
+import logic.VehicleLogic;
 
-import java.awt.geom.Point2D;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class Run {
 
@@ -14,7 +14,7 @@ public class Run {
     static final String config_file = "C:\\Users\\Jandie\\Desktop\\simulation\\maps\\test\\osm.sumocfg";
 
     public static void main(String[] args) {
-
+        VehicleLogic vehicleLogic = new VehicleLogic();
         //start Simulation
         SumoTraciConnection conn = new SumoTraciConnection(sumo_bin, config_file);
 
@@ -22,26 +22,30 @@ public class Run {
         conn.addOption("step-length", "0.1"); //timestep 1 second
 
         try{
-
-            //start TraCI
             conn.runServer();
 
-            //load routes and initialize the simulation
             conn.do_timestep();
 
             for(int i=0; i<3600; i++){
-
+                Thread.sleep(100);
                 //add new vehicle
-                Collection<String> vehicles = (Collection<String>) conn.do_job_get(Vehicle.getIDList());
-                if (vehicles.size() > 0) {
-                    System.out.println(Arrays.toString(vehicles.toArray()));
+                Collection<String> vehiclesIds = (Collection<String>) conn.do_job_get(Vehicle.getIDList());
+                if (vehiclesIds.size() > 0) {
+                    List<domain.Vehicle> vehicles = new ArrayList<>();
 
-                    SumoPosition2D pos =
-                            (SumoPosition2D) conn.do_job_get(
-                                    Vehicle.getPosition(vehicles.toArray()[0].toString()));
+                    for (String vehicleId : vehiclesIds) {
+                        SumoPosition2D pos =
+                                (SumoPosition2D) conn.do_job_get(
+                                        Vehicle.getPosition(vehicleId));
+                        pos = (SumoPosition2D) conn.do_job_get(Simulation.convertGeo(pos.x, pos.y, false));
+                        System.out.println("lat: " + pos.x + " lon: " + pos.y);
 
-                    pos = (SumoPosition2D) conn.do_job_get(Simulation.convertGeo(pos.x, pos.y, false));
-                    System.out.println("x: " + pos.x + " y: " + pos.y);
+                        vehicles.add(new domain.Vehicle(
+                                vehicleId, null, pos.x, pos.y
+                        ));
+
+                        vehicleLogic.update(vehicles);
+                    }
                 }
 
                 conn.do_timestep();
