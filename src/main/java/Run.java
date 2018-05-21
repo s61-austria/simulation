@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class Run {
 
-    static String sumo_bin = "C:\\Program Files (x86)\\DLR\\Sumo\\bin\\sumo.exe";
+    static String sumo_bin = "C:\\Program Files (x86)\\DLR\\Sumo\\bin\\sumo-gui.exe";
     static final String config_file = "C:\\Users\\Jandie\\Desktop\\simulation\\maps\\test\\osm.sumocfg";
 
     public static void main(String[] args) {
@@ -41,10 +41,10 @@ public class Run {
                                 (SumoPosition2D) conn.do_job_get(
                                         Vehicle.getPosition(vehicleId));
                         pos = (SumoPosition2D) conn.do_job_get(Simulation.convertGeo(pos.x, pos.y, false));
-                        System.out.println("lat: " + pos.x + " lon: " + pos.y);
+                        System.out.println("lat: " + pos.y + " lon: " + pos.x);
 
                         vehicles.add(new domain.Vehicle(
-                                vehicleId, null, pos.x, pos.y
+                                vehicleId, null, pos.y, pos.x
                         ));
 
                         vehicleLogic.update(vehicles);
