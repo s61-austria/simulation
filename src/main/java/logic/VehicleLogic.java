@@ -31,15 +31,29 @@ public class VehicleLogic {
     private void checkForNewVehicles(List<Vehicle> vehicles) {
         for (Vehicle vehicle: vehicles) {
             if (!this.vehicles.containsKey(vehicle.getId())) {
-                Vehicle newVehicle = restClient.createJsonVehicle(vehicle);
+                boolean succes = false;
+                do {
+                    try {
+                        Vehicle newVehicle = restClient.createJsonVehicle(vehicle);
 
-                newVehicle.setCurrentLat(vehicle.getCurrentLat());
-                newVehicle.setCurrentLon(vehicle.getCurrentLon());
-                newVehicle.setId(vehicle.getId());
+                        newVehicle.setCurrentLat(vehicle.getCurrentLat());
+                        newVehicle.setCurrentLon(vehicle.getCurrentLon());
+                        newVehicle.setId(vehicle.getId());
 
-                restClient.addVehicleToUser(newVehicle, user.getUuid());
+                        restClient.addVehicleToUser(newVehicle, user.getUuid());
 
-                this.vehicles.put(newVehicle.getId(), newVehicle);
+                        this.vehicles.put(newVehicle.getId(), newVehicle);
+
+                        succes = true;
+                    } catch (Exception e) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                        succes = false;
+                    }
+                } while (!succes);
             }
         }
     }
