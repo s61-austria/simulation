@@ -18,7 +18,7 @@ import java.security.SecureRandom;
 
 public class RestClient {
     private static final String REST_URI =
-            "http://localhost:8080/government/api";
+            "http://192.168.24.42:8080/government/api";
     private Client client = ClientBuilder.newClient();
 
     public String login(String username, String password) {

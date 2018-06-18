@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 public class Run {
 
-    static String sumo_bin = "C:\\Program Files (x86)\\DLR\\Sumo\\bin\\sumo-gui.exe";
-    static final String config_file = "C:\\Users\\Jandie\\Desktop\\simulation\\maps\\test\\osm.sumocfg";
+    static String sumo_bin = "C:\\Program Files (x86)\\DLR\\Sumo\\bin\\sumo.exe";
+    static final String config_file = "C:\\Users\\Jandie\\IdeaProjects\\simulation\\maps\\test\\osm.sumocfg";
 
     public static void main(String[] args) {
         VehicleLogic vehicleLogic = new VehicleLogic();

@@ -25,6 +25,7 @@ public class Vehicle implements Serializable {
     private String locations;
     @JsonIgnore
     private String owner;
+    private boolean stolen;
 
 
     public Vehicle(String id, String uuid, double currentLat, double currentLon) {
@@ -122,5 +123,13 @@ public class Vehicle implements Serializable {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public boolean isStolen() {
+        return stolen;
+    }
+
+    public void setStolen(boolean stolen) {
+        this.stolen = stolen;
     }
 }
