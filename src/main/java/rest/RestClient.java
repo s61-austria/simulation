@@ -86,21 +86,23 @@ public class RestClient {
         return response;
     }
 
-    public Response pingVehicleLocation(Vehicle vehicle, String token) {
-        LocationUpdateSerializer locationUpdateSerializer =
-                new LocationUpdateSerializer(vehicle.getUuid(),
-                        vehicle.getCurrentLat(),
-                        vehicle.getCurrentLon(),
-                        null);
+    public void pingVehicleLocation(Vehicle vehicle, String token) {
+        try {
+            LocationUpdateSerializer locationUpdateSerializer =
+                    new LocationUpdateSerializer(vehicle.getUuid(),
+                            vehicle.getCurrentLat(),
+                            vehicle.getCurrentLon(),
+                            null);
 
-        Response response = client.target(REST_URI)
-                .path("locations")
-                .request(MediaType.APPLICATION_JSON)
-                .header("Authorization", "Bearer " + token)
-                .post(Entity.entity(
-                        new JsonUtil().encode(locationUpdateSerializer),
-                        MediaType.APPLICATION_JSON));
-
-        return response;
+            client.target(REST_URI)
+                    .path("locations")
+                    .request(MediaType.APPLICATION_JSON)
+                    .header("Authorization", "Bearer " + token)
+                    .post(Entity.entity(
+                            new JsonUtil().encode(locationUpdateSerializer),
+                            MediaType.APPLICATION_JSON));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
