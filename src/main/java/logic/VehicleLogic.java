@@ -31,7 +31,7 @@ public class VehicleLogic {
     private void checkForNewVehicles(List<Vehicle> vehicles) {
         for (Vehicle vehicle: vehicles) {
             if (!this.vehicles.containsKey(vehicle.getId())) {
-                boolean succes = false;
+                boolean success = false;
                 do {
                     try {
                         Vehicle newVehicle = restClient.createJsonVehicle(vehicle);
@@ -44,16 +44,16 @@ public class VehicleLogic {
 
                         this.vehicles.put(newVehicle.getId(), newVehicle);
 
-                        succes = true;
+                        success = true;
                     } catch (Exception e) {
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
                         }
-                        succes = false;
+                        success = false;
                     }
-                } while (!succes);
+                } while (!success);
             }
         }
     }
